@@ -47,7 +47,7 @@ const Navbar = () => {
       >
         <Link
           href="/"
-          className="relative p-1 mt-2 rounded-xl dark:bg-neutral-950"
+          className="relative p-1 mt-2 rounded-xl md:mt-0 dark:bg-neutral-950"
         >
           <span className="flex py-1 px-2 text-2xl font-bold rounded-lg border-2 border-r-4 border-b-4 transition-all md:block flex-shrink-1 border-neutral-950 dark:border-neutral-50 hover:-translate-y-[2px]">
             @sinciere_ph
@@ -118,7 +118,7 @@ const Navbar = () => {
           </NavigationMenuList>
         </div>
 
-        <div className="flex flex-col gap-5 items-center mb-2 md:flex-row">
+        <div className="flex flex-col gap-5 items-center mb-2 md:flex-row md:mb-0">
           <SignInButton className="p-4 text-lg font-medium tracking-widest uppercase h-fit">
             Отримати фотографії
           </SignInButton>
