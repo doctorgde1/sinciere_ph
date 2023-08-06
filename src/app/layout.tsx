@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
+import ModeToggle from "@/components/ModeToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <ModeToggle className="fixed bottom-0 z-50 m-4 shrink-0" />
         </Providers>
       </body>
     </html>

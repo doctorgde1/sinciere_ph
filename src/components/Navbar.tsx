@@ -7,7 +7,6 @@ import {
   NavigationMenuList,
 } from "./ui/navigation-menu";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
-import ModeToggle from "./ModeToggle";
 import { useEffect, useState } from "react";
 import { Menu, Star, X } from "lucide-react";
 import SignInButton from "./SignInButton";
@@ -40,80 +39,90 @@ const Navbar = () => {
       </Button>
       <NavigationMenu
         className={cn(
-          "fixed md:relative backdrop-blur-lg md:backdrop-blur-none overflow-y-auto top-0 left-0 translate-x-0 transition-all duration-500 p-2",
+          "fixed flex flex-col md:flex-row gap-5 md:gap-0 min-w-full h-screen md:h-fit justify-center md:justify-between backdrop-blur-lg inset-0 translate-x-0 transition-all duration-500 md:p-4 shadow-md",
           {
             "translate-x-full md:translate-x-0": !open,
           }
         )}
       >
-        <NavigationMenuList className="flex flex-col gap-5 w-screen h-screen md:flex-row md:flex-wrap md:w-fit md:h-fit">
-          <NavigationMenuItem>
-            <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Головна
-                <Star
-                  className={cn(
-                    "hidden w-4 animate-spin fill-neutral-800 dark:fill-neutral-50",
-                    {
-                      block: activeLink === "/",
-                    }
-                  )}
-                />
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/portfolio" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Портфоліо
-                <Star
-                  className={cn(
-                    "hidden w-4 animate-spin fill-neutral-800 dark:fill-neutral-50",
-                    {
-                      block: activeLink === "/portfolio",
-                    }
-                  )}
-                />
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/price" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Прайс
-                <Star
-                  className={cn(
-                    "hidden w-4 animate-spin fill-neutral-800 dark:fill-neutral-50",
-                    {
-                      block: activeLink === "/price",
-                    }
-                  )}
-                />
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link href="/conditions" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Умови праці
-                <Star
-                  className={cn(
-                    "hidden w-4 animate-spin fill-neutral-800 dark:fill-neutral-50",
-                    {
-                      block: activeLink === "/conditions",
-                    }
-                  )}
-                />
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem className="flex gap-5 items-center">
-            <SignInButton className="text-base font-medium tracking-widest uppercase shrink-0">
-              Отримати фотографії
-            </SignInButton>
-            <ModeToggle className="shrink-0" />
-          </NavigationMenuItem>
-        </NavigationMenuList>
+        <Link
+          href="/"
+          className="relative p-1 mt-2 rounded-xl dark:bg-neutral-950"
+        >
+          <span className="flex py-1 px-2 text-2xl font-bold rounded-lg border-2 border-r-4 border-b-4 transition-all md:block flex-shrink-1 border-neutral-950 dark:border-neutral-50 hover:-translate-y-[2px]">
+            @sinciere_ph
+          </span>
+        </Link>
+        <div className="overflow-y-auto w-screen min-h-[100px] max-h-[calc(100%-360px)] md:min-h-full md:max-h-full md:overflow-hidden md:w-fit">
+          <NavigationMenuList className="flex flex-col gap-5 w-full md:flex-row md:flex-wrap md:w-fit">
+            <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Головна
+                  <Star
+                    className={cn(
+                      "hidden w-4 animate-spin fill-neutral-950 dark:fill-neutral-50",
+                      {
+                        block: activeLink === "/",
+                      }
+                    )}
+                  />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/portfolio" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Портфоліо
+                  <Star
+                    className={cn(
+                      "hidden w-4 animate-spin fill-neutral-950 dark:fill-neutral-50",
+                      {
+                        block: activeLink === "/portfolio",
+                      }
+                    )}
+                  />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/price" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Прайс
+                  <Star
+                    className={cn(
+                      "hidden w-4 animate-spin fill-neutral-950 dark:fill-neutral-50",
+                      {
+                        block: activeLink === "/price",
+                      }
+                    )}
+                  />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/conditions" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Умови праці
+                  <Star
+                    className={cn(
+                      "hidden w-4 animate-spin fill-neutral-950 dark:fill-neutral-50",
+                      {
+                        block: activeLink === "/conditions",
+                      }
+                    )}
+                  />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </div>
+
+        <div className="flex flex-col gap-5 items-center mb-2 md:flex-row">
+          <SignInButton className="p-4 text-lg font-medium tracking-widest uppercase h-fit">
+            Отримати фотографії
+          </SignInButton>
+        </div>
       </NavigationMenu>
     </>
   );
