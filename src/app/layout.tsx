@@ -33,15 +33,16 @@ export default async function RootLayout({
   const session = await getAuthSession();
   console.log(session);
 
-  const NAVIGATION =
-    session?.user.role === "ADMIN"
-      ? [{ displayName: "Створити контент", href: "/dashboard" }]
-      : [
-          { displayName: "Головна", href: "/" },
-          { displayName: "Портфоліо", href: "/portfolio" },
-          { displayName: "Прайс", href: "/price" },
-          { displayName: "Умови праці", href: "/conditions" },
-        ];
+  const SITE_NAVIGATION = [
+    { displayName: "Головна", href: "/" },
+    { displayName: "Портфоліо", href: "/portfolio" },
+    { displayName: "Прайс", href: "/price" },
+    { displayName: "Умови праці", href: "/conditions" },
+  ];
+
+  const USER_NAVIGATION = session?.user.role === "ADMIN" ? [
+      { displayName: "Галереї", href: `/galleries` },
+  ]: [{ displayName: "Мої фото", href: `/galleries/${session?.user.id}` }] ;
 
   return (
     <html lang="en">
@@ -63,9 +64,9 @@ export default async function RootLayout({
                   <LogIn />
                 </SignInButton>
               ) : (
-                <UserAccountNav className="z-50" user={session.user} />
+                <UserAccountNav links={USER_NAVIGATION} className="z-50" user={session.user} />
               )}
-              <Navbar links={NAVIGATION} />
+              <Navbar links={SITE_NAVIGATION} />
             </div>
           </Header>
           {children}

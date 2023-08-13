@@ -14,13 +14,19 @@ import { Button } from "./ui/button";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { NavItem } from "./Navbar";
 
 interface IUserAccountNav {
+  links: NavItem[];
   user: Pick<User, "name" | "image" | "id">;
   className?: string;
 }
 
-const UserAccountNav: React.FC<IUserAccountNav> = ({ user, className }) => {
+const UserAccountNav: React.FC<IUserAccountNav> = ({
+  links,
+  user,
+  className,
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -40,9 +46,11 @@ const UserAccountNav: React.FC<IUserAccountNav> = ({ user, className }) => {
       <DropdownMenuContent>
         <DropdownMenuLabel>Мій акаунт</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href={`/galleries/${user.id}`}>Мої фото</Link>
-        </DropdownMenuItem>
+        {links.map((link) => (
+          <DropdownMenuItem key={link.displayName}>
+            <Link href={link.href}>{link.displayName}</Link>
+          </DropdownMenuItem>
+        ))}
         <DropdownMenuItem>
           <Button onClick={() => signOut()}>Вийти</Button>
         </DropdownMenuItem>
