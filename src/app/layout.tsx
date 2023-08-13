@@ -5,6 +5,12 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import ModeToggle from "@/components/ModeToggle";
+import { getAuthSession } from "@/lib/auth";
+import Header from "@/components/Header";
+import SignInButton from "@/components/SignInButton";
+import UserAccountNav from "@/components/UserAccountNav";
+import Logo from "@/components/Logo";
+import { LogIn } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,18 +25,51 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getAuthSession();
+  console.log(session);
+
+  const NAVIGATION =
+    session?.user.role === "ADMIN"
+      ? [{ displayName: "Створити контент", href: "/dashboard" }]
+      : [
+          { displayName: "Головна", href: "/" },
+          { displayName: "Портфоліо", href: "/portfolio" },
+          { displayName: "Прайс", href: "/price" },
+          { displayName: "Умови праці", href: "/conditions" },
+        ];
+
   return (
     <html lang="en">
       <body className={cn(inter.className)}>
         <Providers>
-          <Navbar />
+          <Header className="flex gap-x-4 justify-between sm:gap-x-12">
+            <Logo
+              href={"/"}
+              content={"@sinciere_ph"}
+              className="z-50 text-lg sm:text-2xl"
+            />
+            <div className="flex gap-2 items-center">
+              {!session?.user ? (
+                <SignInButton
+                  variant={"destructive"}
+                  size={"icon"}
+                  className="z-50"
+                >
+                  <LogIn />
+                </SignInButton>
+              ) : (
+                <UserAccountNav className="z-50" user={session.user} />
+              )}
+              <Navbar links={NAVIGATION} />
+            </div>
+          </Header>
           {children}
-          <ModeToggle className="fixed bottom-0 z-50 m-4 shrink-0" />
+          <ModeToggle className="fixed bottom-0 z-50 m-3 shrink-0" />
         </Providers>
       </body>
     </html>
