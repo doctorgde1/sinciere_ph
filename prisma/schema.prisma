@@ -51,6 +51,13 @@ enum UserRole {
   CLIENT
 }
 
+model HomePageContent {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  ordinalNumber Int
+  key           String
+  url           String
+}
+
 model VerificationToken {
   identifier String   @id @default(auto()) @map("_id") @db.ObjectId
   token      String   @unique

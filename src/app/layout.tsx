@@ -31,7 +31,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getAuthSession();
-  console.log(session);
 
   const SITE_NAVIGATION = [
     { displayName: "Головна", href: "/" },
@@ -41,7 +40,7 @@ export default async function RootLayout({
   ];
 
   const USER_NAVIGATION = session?.user.role === "ADMIN" ? [
-      { displayName: "Галереї", href: `/galleries` },
+      { displayName: "Редагувати головну сторінку", href: `/admin/editHomeContent` },
   ]: [{ displayName: "Мої фото", href: `/galleries/${session?.user.id}` }] ;
 
   return (

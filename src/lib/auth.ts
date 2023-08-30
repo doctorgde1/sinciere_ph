@@ -34,13 +34,9 @@ export const authOptions: NextAuthOptions = {
         token: { label: "Ключ доступа", type: "text" },
       },
       async authorize(credentials, req) {
-        console.log(1);
-        console.log(credentials);
         const user = await prisma.user.findFirst({
           where: { accessKey: credentials?.token },
         });
-
-        console.log(user);
 
         if (user) {
           return user;
